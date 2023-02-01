@@ -33,12 +33,13 @@ module Api
         end
       end
 
-      def delete
-
-      end
-
       def destroy
-
+        user = User.find(params[:id])
+        if user.destroy()
+          render json: {data: user, message: "User Updated"}, status: :ok
+        else
+          render json: {data: user.errors, message: "User not Updated"}, status: :unprocessable_entity
+        end
       end
 
       private
