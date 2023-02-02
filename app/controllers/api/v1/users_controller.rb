@@ -1,6 +1,7 @@
 module Api
   module V1
     class UsersController < ApplicationController
+      # skip_before_action :authorize, only:[:index]
       def index
         users = User.all
         render json: {data: users}, status: :ok
