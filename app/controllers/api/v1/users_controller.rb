@@ -11,6 +11,11 @@ module Api
         render json: {data: user}, status: :ok
       end
 
+      def get_logged_in_user
+        # current_user = User.find(session[:current_user_id])
+        # render json: {data: current_user}, status: :ok
+      end
+
       def new
         @user = User.new
       end
