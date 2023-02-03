@@ -10,7 +10,7 @@ class ApplicationController < ActionController::API
       @user = User.find_by(id:decoded_token[:user_id])
       render json:{ error: 'Not Authorized' }, status:401 unless @user
     else
-      render json: { error: 'Not Authorized' }, status: 401
+      render json: { message: 'No Authourization' }, status: 401
     end
   end
 
@@ -23,6 +23,6 @@ class ApplicationController < ActionController::API
     body = JWT.decode(token,Rails.application.secrets.secret_key_base)[0]
     HashWithIndifferentAccess.new body
   rescue
-    nil
+    render json: { data: 'No Authourization' }, status: 500
   end
 end
