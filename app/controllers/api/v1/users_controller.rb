@@ -17,16 +17,12 @@ module Api
         # render json: {data: current_user}, status: :ok
       end
 
-      def new
-        @user = User.new
-      end
-
       def create
         user = User.new(user_param)
         if user.save
-          render json: {message: "User created"}, status: :ok
+          render json: {message: "User created"}, status: 201
         else
-          render json: {data: user.errors, message: "User not created"}, status: :unprocessable_entity
+          render json: {message: "User not created"}, status: 409
         end
       end
 
