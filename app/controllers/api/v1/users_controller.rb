@@ -4,12 +4,12 @@ module Api
       # skip_before_action :authorize, only:[:index]
       def index
         users = User.all
-        render json: {data: users}, status: :ok
+        render json: users, status: :ok
       end
 
       def show
         user = User.find(params[:id])
-        render json: {data: user}, status: :ok
+        render json: {data: user}
       end
 
       def get_logged_in_user
@@ -24,7 +24,7 @@ module Api
       def create
         user = User.new(user_param)
         if user.save
-          render json: {data: user, message: "User created"}, status: :ok
+          render json: {message: "User created"}, status: :ok
         else
           render json: {data: user.errors, message: "User not created"}, status: :unprocessable_entity
         end
@@ -33,7 +33,7 @@ module Api
       def update
         user = User.find(params[:id])
         if user.update(user_param)
-          render json: {data: user, message: "User Updated"}, status: :ok
+          render json: {message: "User Updated"}, status: :ok
         else
           render json: {data: user.errors, message: "User not Updated"}, status: :unprocessable_entity
         end
@@ -42,7 +42,7 @@ module Api
       def destroy
         user = User.find(params[:id])
         if user.destroy()
-          render json: {data: user, message: "User Updated"}, status: :ok
+          render json: {message: "User Updated"}, status: :ok
         else
           render json: {data: user.errors, message: "User not Updated"}, status: :unprocessable_entity
         end
