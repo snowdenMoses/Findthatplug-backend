@@ -25,4 +25,6 @@ class ApplicationController < ActionController::API
   rescue
     render json: { data: 'No Authourization' }, status: 500
   end
+
+  def current_user
 end

@@ -10,6 +10,7 @@ module Api
       def show
         user = User.find(params[:id])
         render json: user
+        # put current_user
       end
 
       def get_logged_in_user
@@ -38,9 +39,9 @@ module Api
       def destroy
         user = User.find(params[:id])
         if user.destroy()
-          render json: {message: "User Updated"}, status: :ok
+          render json: {message: "User Deleted"}, status: :ok
         else
-          render json: {data: user.errors, message: "User not Updated"}, status: :unprocessable_entity
+          render json: {data: user.errors, message: "User not Deleted"}, status: :unprocessable_entity
         end
       end
 

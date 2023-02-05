@@ -23,6 +23,13 @@ module Findthatplug
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     secrets.secret_key_base = 'secret_key'
+
+
+    config.session_store :cookie_store, key: '_interslice_session'
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use config.session_store, config.session_options
+
+
     config.api_only = true
   end
 end
