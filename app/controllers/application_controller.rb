@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::API
-  before_action :authorize, except: [:index, :create]
+  before_action :authorize, except: [:index]
 
   # Decode jwt and authorize if the http request has a token
   def authorize
@@ -8,6 +8,7 @@ class ApplicationController < ActionController::API
       token = @headers['Authorization'].split(' ').last
       decoded_token = decode(token)
       @user = User.find_by(id:decoded_token[:user_id])
+      session[:current_user_id] = @user.id
       render json:{ error: 'Not Authorized' }, status:401 unless @user
     else
       render json: { message: 'No Authourization' }, status: 401
@@ -15,7 +16,7 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
-    user = User.find_by(id: 1)
+    user = User.find_by(id: session[:current_user_id])
   end
 
   private
