@@ -9,7 +9,7 @@ module Api
 
       def show
         user = User.find(params[:id])
-        render json: {data: user}
+        render json: user
       end
 
       def get_logged_in_user
@@ -20,9 +20,9 @@ module Api
       def create
         user = User.new(user_param)
         if user.save
-          render json: {message: "User created"}, status: 201
+          render json: {message: "User created"}, status: :ok
         else
-          render json: {message: "User not created"}, status: 409
+          render json: {data: user.errors, message: "User not created"}, status: :unprocessable_entity
         end
       end
 

@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::API
-  before_action :authorize, except: [:index,:create]
+  before_action :authorize, except: [:index]
 
   # Decode jwt and authorize if the http request has a token
   def authorize
