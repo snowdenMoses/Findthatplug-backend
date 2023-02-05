@@ -9,6 +9,8 @@ class Api::V1::ProductsController < ApplicationController
   end
 def create
   product = Product.new(payload)
+  product.user = current_user
+
   if product.save
     render json: product, status: :ok
   else
@@ -19,6 +21,6 @@ end
 private
 
 def payload
-  params.permit(:name, :description, :price, :user)
+  params.permit(:name, :description, :price)
 end
 end

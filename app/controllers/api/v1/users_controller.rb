@@ -10,12 +10,6 @@ module Api
       def show
         user = User.find(params[:id])
         render json: user
-        # put current_user
-      end
-
-      def get_logged_in_user
-        # current_user = User.find(session[:current_user_id])
-        # render json: {data: current_user}, status: :ok
       end
 
       def create

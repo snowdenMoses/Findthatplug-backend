@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::API
-  before_action :authorize, except: [:index]
+  before_action :authorize, except: [:index, :create]
 
   # Decode jwt and authorize if the http request has a token
   def authorize
@@ -14,6 +14,10 @@ class ApplicationController < ActionController::API
     end
   end
 
+  def current_user
+    user = User.find_by(id: 1)
+  end
+
   private
   # def encode(payload, exp = 24.hours.from_now)
   #   payload[:exp] = exp.to_i
@@ -25,6 +29,4 @@ class ApplicationController < ActionController::API
   rescue
     render json: { data: 'No Authourization' }, status: 500
   end
-
-  def current_user
 end
