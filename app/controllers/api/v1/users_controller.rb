@@ -1,7 +1,7 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      # skip_before_action :authorize, only:[:index]
+      skip_before_action :authorize, only:[:index]
       def index
         users = User.all
         render json: users, status: :ok
@@ -10,11 +10,6 @@ module Api
       def show
         user = User.find(params[:id])
         render json: user
-      end
-
-      def get_logged_in_user
-        # current_user = User.find(session[:current_user_id])
-        # render json: {data: current_user}, status: :ok
       end
 
       def create
@@ -38,9 +33,9 @@ module Api
       def destroy
         user = User.find(params[:id])
         if user.destroy()
-          render json: {message: "User Updated"}, status: :ok
+          render json: {message: "User Deleted"}, status: :ok
         else
-          render json: {data: user.errors, message: "User not Updated"}, status: :unprocessable_entity
+          render json: {data: user.errors, message: "User not Deleted"}, status: :unprocessable_entity
         end
       end
 
