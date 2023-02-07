@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::API
-  before_action :authorize, except: [:index]
+  before_action :authorize, except: [:index,:authenticate]
 
   # Decode jwt and authorize if the http request has a token
   def authorize
@@ -18,12 +18,18 @@ class ApplicationController < ActionController::API
   def current_user
     user = User.find_by(id: session[:current_user_id])
   end
+  def authenticate
+    user = User.find_by(email: params[:email])
+    if user && user.authenticate(params[:password])
+      token = JWT.encode({user_id: user.id}, Rails.application.secrets.secret_key_base)
+      render json: {token: token}, status: :ok
+    else
+      render json: {error: 'Invalid credentials'}, status: :unauthorized
+    end
+  end
 
   private
-  # def encode(payload, exp = 24.hours.from_now)
-  #   payload[:exp] = exp.to_i
-  #   JWT.encode(payload, Rails.application.secrets.secret_key_base)
-  # end
+
   def decode(token)
     body = JWT.decode(token,Rails.application.secrets.secret_key_base)[0]
     HashWithIndifferentAccess.new body

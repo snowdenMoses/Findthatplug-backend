@@ -1,7 +1,7 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      skip_before_action :authorize, only:[:index]
+      skip_before_action :authorize, only:[:index,:create]
       def index
         users = User.all
         render json: users, status: :ok
@@ -15,7 +15,8 @@ module Api
       def create
         user = User.new(user_param)
         if user.save
-          render json: {message: "User created"}, status: :ok
+          token = JWT.encode({user_id: user.id}, Rails.application.secrets.secret_key_base)
+          render json: {data: user, message: "User created", token:token}, status: :ok
         else
           render json: {data: user.errors, message: "User not created"}, status: :unprocessable_entity
         end
