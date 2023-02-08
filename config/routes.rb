@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     namespace "v1" do
       resources :users
       resources :products
+      resources :categories
       # post 'authenticate', to: 'auth#authenticate'
       # resources :auth, only: [:show]
     end
