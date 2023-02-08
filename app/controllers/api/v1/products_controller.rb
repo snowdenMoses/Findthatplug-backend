@@ -21,6 +21,6 @@ end
 private
 
 def payload
-  params.permit(:name, :description, :price, :user_id)
+  params.permit(:name, :description, :price, :user_id, :categories)
 end
 end
