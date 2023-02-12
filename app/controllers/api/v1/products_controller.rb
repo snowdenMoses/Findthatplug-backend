@@ -9,17 +9,19 @@ class Api::V1::ProductsController < ApplicationController
   end
   def create
     product = Product.new(payload)
-    # [1, 2, 3].each do |n|
-    #   text = "Current number is: #{n}"
-    #   puts text
-    # end
     params[:categories].each do |element|
       category = Category.find(element.to_i)
       product.categories << category
     end
     product.user = current_user
+
+    #upload Image
+    image = params[:image]
+    s3_object = S3_BUCKET.object(image.original_filename)
+    s3_object.upload_file(image.path, acl: 'public-read')
+
     if product.save
-      render json: {data: params[:categories], message: "Product Successfully Added"}, status: :ok
+      render json: {data: {  }, message: "Product Successfully Added"}, status: :ok
     else
       render json: {data: product.errors, message: "Product not created"}, status: :unprocessable_entity
     end
@@ -28,6 +30,6 @@ end
 private
 
 def payload
-  params.permit(:name, :description, :price, :user_id, :categories)
+  params.permit(:name, :description, :price, :user_id, :categories,:image)
 end
 end
