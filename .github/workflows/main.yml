@@ -1,4 +1,4 @@
-name: Deploy main to AWS Elasticstalk_v2
+name: Deploy main to AWS Elasticstalk_v3
 on:
   push:
     branches:
