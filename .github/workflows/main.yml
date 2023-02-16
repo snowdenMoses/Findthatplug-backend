@@ -1,4 +1,4 @@
-name: Deploy to AWS Elasticbeanstalk
+name: Deploy master
 on:
   push:
     branches:
@@ -23,5 +23,5 @@ jobs:
         application_name: findthatplug
         environment_name: Findthatplug-env
         version_label: 12345
-        region: us-west-1
+        region: us-east-1
         deployment_package: deploy.zip
