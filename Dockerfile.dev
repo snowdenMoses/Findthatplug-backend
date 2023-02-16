@@ -1,0 +1,22 @@
+# Use the official Ruby image as the base image
+FROM ruby:3.0.5-alpine
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the Gemfile and Gemfile.lock to the container
+COPY Gemfile Gemfile.lock ./
+
+# Install the Ruby dependencies
+RUN apk add --update --no-cache build-base postgresql-dev nodejs tzdata \
+    && gem install bundler \
+    && bundle install --jobs 20 --retry 5 \
+    && apk del build-base
+
+# Copy the rest of the application code to the container
+COPY . .
+COPY --chmod=0755 *.sh /bin/
+# ENTRYPOINT ["./bin/docker-entry.sh"]
+ENTRYPOINT ["/bin/sh", "./bin/docker-entrypoint.sh"]
+# Set the command to run the rails server
+CMD ["bundle", "exec", "rails", "server"]
