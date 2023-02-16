@@ -9,7 +9,6 @@ class Api::V1::ProductsController < ApplicationController
     render json: {data: product, prod_cat: product.categories}
   end
   def create
-
     product = Product.new(payload)
     categories = JSON.parse(params[:categories])
     categories.each do |element|
@@ -32,6 +31,24 @@ class Api::V1::ProductsController < ApplicationController
       render json: {data: product.errors, message: "Product not created"}, status: :unprocessable_entity
     end
   end
+
+  def destroy
+        product = Product.find(params[:id])
+        if product.destroy()
+          render json: {message: "Product Deleted"}, status: :ok
+        else
+          render json: {data: product.errors, message: "Product not Deleted"}, status: :unprocessable_entity
+        end
+  end
+
+  def update
+      product = Product.find(params[:id])
+      if product.update(payload)
+        render json: {message: "Product Updated"}, status: :ok
+      else
+        render json: {data: product.errors, message: "Product not Updated"}, status: :unprocessable_entity
+      end
+    end
 
   private
 

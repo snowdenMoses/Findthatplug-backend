@@ -36,7 +36,7 @@ class Api::V1::CategoriesController < ApplicationController
       else
         render json: {data: category.errors, message: "Category not Updated"}, status: :unprocessable_entity
       end
-    end
+  end
 
   private
   def category_payload
