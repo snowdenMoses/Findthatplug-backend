@@ -1,4 +1,4 @@
-name: Deployment From Github To AWS elasticbeanstalk
+name: Deployment From Github To AWS elasticbeanstalkk
 on:
   push:
     branches:
