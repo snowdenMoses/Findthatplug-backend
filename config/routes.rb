@@ -9,8 +9,6 @@ Rails.application.routes.draw do
       resources :products
       resources :categories
       resources :images
-      # post 'authenticate', to: 'auth#authenticate'
-      # resources :auth, only: [:show]
     end
   end
 
