@@ -1,4 +1,4 @@
-name: Deploy master
+name: Deploy to AWS Elasticbeanstalk
 on:
   push:
     branches:
