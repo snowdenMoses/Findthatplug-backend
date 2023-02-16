@@ -1,28 +1,27 @@
-name: Deployment From Github To AWS elasticbeanstalk
+name: Deploy master
 on:
   push:
     branches:
-      - main
+    - master
+
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Latest Repo
-        uses: actions/checkout@main
-        
-      - name: Generate Deployment Package 
-        run: zip -r deploy.zip * -x "**node_modules**"
-        
-      - name: Get timestamp
-        uses: gerred/actions/current-time@main
-        id: current-time
-          
-      - name: Deploy to EB
-        uses: einaregilsson/beanstalk-deploy@v14
-        with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: findthatplug
-          environment_name: Findthatplug-env
-          region: us-east-1
-          deployment_package: deploy.zip
+
+    - name: Checkout source code
+      uses: actions/checkout@v2
+
+    - name: Generate deployment package
+      run: zip -r deploy.zip . -x '*.git*'
+
+    - name: Deploy to EB
+      uses: einaregilsson/beanstalk-deploy@v21
+      with:
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        application_name: findthatplug
+        environment_name: Findthatplug-env
+        version_label: 12345
+        region: us-west-1
+        deployment_package: deploy.zip
