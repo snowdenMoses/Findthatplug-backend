@@ -1,8 +1,8 @@
-name: Deploy master
+name: Deploy main to AWS Elasticstalk
 on:
   push:
     branches:
-    - master
+    - main
 
 jobs:
   build:
