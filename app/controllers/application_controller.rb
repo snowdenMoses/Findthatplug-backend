@@ -28,6 +28,10 @@ class ApplicationController < ActionController::API
     end
   end
 
+  def logout
+    session[:current_user_id] = ""
+  end
+
   private
 
   def decode(token)
