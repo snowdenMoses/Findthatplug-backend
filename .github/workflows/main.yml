@@ -16,15 +16,6 @@ jobs:
       - name: Get timestamp
         uses: gerred/actions/current-time@main
         id: current-time
-        
-      - name: Run string replace
-        uses: frabert/replace-string-action@main
-        id: format-time
-        with:
-          pattern: '[:\.]+'
-          string: "${{ steps.current-time.outputs.time }}"
-          replace-with: '-'
-          flags: 'g'
           
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v14
@@ -33,6 +24,5 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: findthatplug
           environment_name: Findthatplug-env
-          version_label: "findthatplug-${{ steps.format-time.outputs.replaced }}"
           region: us-east-1
           deployment_package: deploy.zip
