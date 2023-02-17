@@ -25,7 +25,7 @@ module Api
       def update
         user = User.find(params[:id])
         if user.update(user_param)
-          render json: {message: "User Updated Successfully"}, status: :ok
+          render json: {message: "User Updated"}, status: :ok
         else
           render json: {data: user.errors, message: "User not Updated"}, status: :unprocessable_entity
         end
@@ -34,7 +34,7 @@ module Api
       def destroy
         user = User.find(params[:id])
         if user.destroy()
-          render json: {message: "User Deleted Successfully"}, status: :ok
+          render json: {message: "User Deleted"}, status: :ok
         else
           render json: {data: user.errors, message: "User not Deleted"}, status: :unprocessable_entity
         end
