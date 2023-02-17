@@ -12,13 +12,11 @@ services:
         volumes:
           - ./pg-data:/var/lib/postgresql/data
     backend:
-        build:
-          context: ./server/findthatplug
-          dockerfile: Dockerfile.dev
+        build: .
         ports:
           - "3000:3000"
         volumes:
-          - ./server/findthatplug:/app
+          - .:/app
         command: bundle exec rails s -p 3000 -b '0.0.0.0'
         depends_on:
           - db

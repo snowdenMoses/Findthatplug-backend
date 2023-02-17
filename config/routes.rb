@@ -13,5 +13,5 @@ Rails.application.routes.draw do
   end
 
   post 'authenticate', to: 'application#authenticate'
-  get 'logout', t0: 'application#logout'
+  get 'logout', to: 'application#logout'
 end
