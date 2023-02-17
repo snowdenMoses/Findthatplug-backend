@@ -2,10 +2,10 @@
 
 set -e
 # Remove the if block (and fi) if migration does not work
-if [ "${*}" == "./bin/rails server" ]; then
+# if [ "${*}" == "./bin/rails server" ]; then
   rake db:create
   rake db:migrate
-fi
+# fi
 
 exec "$@"
 
