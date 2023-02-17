@@ -31,8 +31,8 @@ jobs:
         existing_bucket_name: true
         aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        application_name: findthatplug2
-        environment_name: Findthatplug2-env
+        application_name: findthatplug_backend
+        environment_name: Findthatplugbackend-env
         version_label: "findthatplug-${{ steps.format-time.outputs.replaced }}"
         region: us-east-1
         deployment_package: deploy.zip
