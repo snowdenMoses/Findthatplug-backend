@@ -23,7 +23,7 @@ class Api::V1::CategoriesController < ApplicationController
  def destroy
         category = Category.find(params[:id])
         if category.destroy()
-          render json: {message: "Category Deleted"}, status: :ok
+          render json: {message: "Category Deleted Successfully"}, status: :ok
         else
           render json: {data: category.errors, message: "Category not Deleted"}, status: :unprocessable_entity
         end
