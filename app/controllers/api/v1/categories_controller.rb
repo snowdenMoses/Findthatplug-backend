@@ -14,7 +14,7 @@ class Api::V1::CategoriesController < ApplicationController
   def create
     category = Category.new(category_payload)
     if category.save
-      render json: {message: "Category Created"}, status: :ok
+      render json: {message: "Category Created Successfully"}, status: :ok
     else
       render json: {data: user.errors, message: "Category Not Created"}, status: :unprocessable_entity
     end
